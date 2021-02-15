@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-//@RequestMapping("/users")
+@RequestMapping("users")
 public class UsersController {
-    @GetMapping("/users")
+    @GetMapping
     public String getPage() {
         return "users";
     }
