@@ -5,6 +5,30 @@
     <title>TestTitle</title>
 </head>
 <body>
-<div> {{msg}} </div>
+    <div>
+        <form method="post" action="/test">
+            <input type="text" name="tag" placeholder="tag" />
+            <input type="text" name="text" placeholder="text" />
+            <button type="submit">Add post</button>
+        </form>
+    </div>
+
+    <div>
+        <form method="post" action="/test/filter">
+            <input type="text" name="tag" placeholder="tag" />
+            <button type="submit">Filter</button>
+        </form>
+    </div>
+
+    <h4> Posts: </h4>
+    <div>
+        {{#posts}}
+        <div>
+            <h6>{{tag}} : {{creationTime}}</h6>
+            <p>{{text}}</p>
+            <br>
+        </div>
+        {{/posts}}
+    </div>
 </body>
 </html>

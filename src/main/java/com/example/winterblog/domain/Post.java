@@ -17,6 +17,18 @@ public class Post {
     private LocalDateTime creationTime;
 
     //==========================================
+    //============ CONSTRUCTORS ================
+    //==========================================
+
+    public Post() {}
+
+    public Post(String tag, String text) {
+        this.tag = tag;
+        this.text = text;
+        this.creationTime = LocalDateTime.now();
+    }
+
+    //==========================================
     //======= GETTERS AND SETTERS ==============
     //==========================================
 
