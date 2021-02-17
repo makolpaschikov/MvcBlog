@@ -1,10 +1,11 @@
 package com.example.winterblog.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Post {
@@ -14,7 +15,8 @@ public class Post {
 
     private String tag;
     private String text;
-    private LocalDateTime creationTime;
+    @Column(updatable = false)
+    private String creationTime;
 
     //==========================================
     //============ CONSTRUCTORS ================
@@ -25,7 +27,9 @@ public class Post {
     public Post(String tag, String text) {
         this.tag = tag;
         this.text = text;
-        this.creationTime = LocalDateTime.now();
+
+        String time = LocalDateTime.now().toString();
+        this.creationTime = time.substring(0, time.lastIndexOf(":")).replace('T', ' ');
     }
 
     //==========================================
@@ -56,11 +60,11 @@ public class Post {
         this.text = text;
     }
 
-    public LocalDateTime getCreationTime() {
+    public String getCreationTime() {
         return creationTime;
     }
 
-    public void setCreationTime(LocalDateTime creationTime) {
+    public void setCreationTime(String creationTime) {
         this.creationTime = creationTime;
     }
 }

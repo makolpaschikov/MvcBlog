@@ -4,24 +4,27 @@ import com.example.winterblog.domain.Post;
 import com.example.winterblog.repository.PostDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
 @Controller
-@RequestMapping("test")
-public class TestController {
+@RequestMapping("blog")
+public class BlogController {
     private final PostDAO postDAO;
 
     @Autowired
-    public TestController(PostDAO postDAO) {
+    public BlogController(PostDAO postDAO) {
         this.postDAO = postDAO;
     }
 
     @GetMapping
-    public String getPage(Map<String, Object> model){
+    public String getPage(Map<String, Object> model) {
         model.put("posts", postDAO.findAll());
-        return "dumb";
+        return "blog";
     }
 
     @PostMapping
@@ -33,7 +36,7 @@ public class TestController {
     @PostMapping("filter")
     public String filterPosts(@RequestParam String filter, Map<String, Object> model) {
         model.put("posts", postDAO.findPostByTagStartingWith(filter));
-        return "dumb";
+        return "blog";
     }
 
     @PostMapping("clear")
