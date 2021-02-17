@@ -15,8 +15,14 @@
 
     <div>
         <form method="post" action="/test/filter">
-            <input type="text" name="tag" placeholder="tag" />
+            <input type="text" name="filter" placeholder="filter" />
             <button type="submit">Filter</button>
+        </form>
+    </div>
+
+    <div>
+        <form method="post" action="/test/clear">
+            <button type="submit">RemovePosts</button>
         </form>
     </div>
 
@@ -24,9 +30,9 @@
     <div>
         {{#posts}}
         <div>
-            <h6>{{tag}} : {{creationTime}}</h6>
-            <p>{{text}}</p>
-            <br>
+            <h4>{{tag}} : {{creationTime}}</h4>
+            <span>{{text}}</span>
+            <hr>
         </div>
         {{/posts}}
     </div>
