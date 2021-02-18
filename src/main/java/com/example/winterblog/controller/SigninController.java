@@ -31,7 +31,7 @@ public class SigninController {
     public String registration(User user, Map<String, Object> model) {
         User userFromDB = userDAO.findUserByUsername(user.getUsername());
         if (userFromDB != null) {
-            model.put("warning", "A user with this name is already registered");
+            model.put("warning", "A user with this name is already registered!");
             return getPage();
         } else {
             user.setActive(true);

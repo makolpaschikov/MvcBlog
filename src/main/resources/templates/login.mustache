@@ -1,22 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>LogIn</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style type="text/css">
+        .footer {
+            border: solid 1px silver;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            left: 0;
+            text-align: center;
+        }
+    </style>
 </head>
+
 <body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand">Popoi k verhu ↑</a>
+    <div>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/users">Users</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/login">LogIn</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
-<div>
-    <form method="post" action="/login">
-        <div><label>Username: <input type="text" name="username"/></label></div>
-        <div><label>Password: <input type="password" name="password"/></label></div>
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}">
-        <div><button type="submit">LogIn"</button></div>
-    </form>
+<main role="main">
+    <div class="container pt-5 mt-5"><div class="mt-5 pt-5"><div class="mt-5 pt-5">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <form method="post" action="/login">
+                    <div class="form-label-group">
+                        <input type="text" class="form-control" name="username" placeholder="Username">
+                    </div>
+                    <div class="form-label-group">
+                        <input type="password" class="form-control" name="password" placeholder="Password">
+                    </div>
+                    <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+                    <br><button class="btn btn-sm btn-outline-primary btn-block" type="submit"><b>Log in</b></button>
+                </form>
+                <a class="btn btn-sm btn-outline-primary btn-block text-area color-rect-border mt-1" href="/signin"><b>Create account</b></a>
+            </div>
+        </div>
+    </div></div></div>
+</main>
+
+<div class="footer">
+    <p>Made by <a href="https://github.com/makolpaschikov" target="_blank">Maxim Kolpaschikov</a></p>
 </div>
-
-<a href="/signin">Create account</a>
-
 
 </body>
 </html>
