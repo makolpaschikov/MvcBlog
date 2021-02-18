@@ -2,20 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>LogIn</title>
+    <title>SignIn</title>
 </head>
 <body>
 
 <div>
-    <form method="post" action="/login">
+    <form method="post" action="/signin">
         <div><label>Username: <input type="text" name="username"/></label></div>
         <div><label>Password: <input type="password" name="password"/></label></div>
         <input type="hidden" name="_csrf" value="{{_csrf.token}}">
-        <div><button type="submit">LogIn"</button></div>
+        <div><button type="submit">SignIn"</button></div>
     </form>
+    <div>
+        {{#warning}}
+            {{warning}}
+        {{/warning}}
+    </div>
 </div>
-
-<a href="/signin">Create account</a>
 
 
 </body>

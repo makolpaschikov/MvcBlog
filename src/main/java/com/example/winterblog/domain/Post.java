@@ -1,11 +1,7 @@
 package com.example.winterblog.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Post {
@@ -13,10 +9,11 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String tag;
-    private String text;
     @Column(updatable = false)
     private String creationTime;
+
+    private String tag;
+    private String text;
 
     //==========================================
     //============ CONSTRUCTORS ================
