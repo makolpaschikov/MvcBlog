@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Blog</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style type="text/css">
+        .footer {
+            border: solid 1px silver;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            left: 0;
+            text-align: center;
+        }
+        #logout {
+            color: #9a9da0;
+            text-decoration: none;
+        }
+        #logout:hover {
+            color: #cccecf;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand">Popoi k verhu ↑</a>
+    <div>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/blog">Blog</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/users">Users</a>
+            </li>
+            <li class="nav-item">
+                <form action="/logout" method="post">
+                    <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+                    <button id="logout" class="btn btn-link"  type="submit">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main role="main">
+    <div class="row justify-content-center pt-2 mt-2">
+        <div class="col-4">
+            <form method="post" action="/users/user">
+                <div class="form-label-group">
+                    <input type="text" class="form-control" name="username" placeholder="Username">
+                </div>
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+                <button class="btn btn-sm btn-outline-primary btn-block mt-1" type="submit"><b>Find the user</b></button>
+            </form>
+        </div>
+    </div>
+
+    {{#users}}
+        <div class="ml-5 mt-2">
+            <p>{{username}}</p>
+        </div>
+    {{/users}}
+</main>
+
+<div class="footer">
+    <p>Made by <a href="https://github.com/makolpaschikov" target="_blank">Maxim Kolpaschikov</a></p>
+</div>
+
+</body>
+</html>
