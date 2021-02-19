@@ -14,6 +14,14 @@
             left: 0;
             text-align: center;
         }
+        #logout {
+            color: #9a9da0;
+            text-decoration: none;
+        }
+        #logout:hover {
+            color: #cccecf;
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -31,7 +39,7 @@
             <li class="nav-item">
                 <form action="/logout" method="post">
                     <input type="hidden" name="_csrf" value="{{_csrf.token}}">
-                    <button class="btn btn-link" type="submit">Logout</button>
+                    <button id="logout" class="btn btn-link"  type="submit">Logout</button>
                 </form>
             </li>
         </ul>
