@@ -42,6 +42,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
     testImplementation 'org.springframework.security:spring-security-test'
+
+    implementation group: 'de.mklinger.micro', name: 'lists', version: '1.0'
 }
 
 test {
