@@ -29,7 +29,7 @@ public class SecurityCfg extends WebSecurityConfigurerAdapter implements WebMvcC
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .mvcMatchers("/", "signin").permitAll()
+                    .mvcMatchers("/", "signup").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/blog")

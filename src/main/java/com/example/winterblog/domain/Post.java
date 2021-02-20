@@ -16,7 +16,7 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User author;
 
-    private String tag;
+    private String title;
     private String text;
 
     //==========================================
@@ -25,8 +25,8 @@ public class Post {
 
     public Post() {}
 
-    public Post(String tag, String text, User author) {
-        this.tag = tag;
+    public Post(String title, String text, User author) {
+        this.title = title;
         this.text = text;
         this.author = author;
 
@@ -46,12 +46,12 @@ public class Post {
         this.id = id;
     }
 
-    public String getTag() {
-        return tag;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setTitle(String tag) {
+        this.title = tag;
     }
 
     public String getText() {

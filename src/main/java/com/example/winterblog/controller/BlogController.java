@@ -39,7 +39,7 @@ public class BlogController {
             model.put("posts", posts);
             return "redirect:/blog";
         } else {
-            posts = postDAO.findPostByTagIsStartingWithAndAuthor(filter, user);
+            posts = postDAO.findPostByTitleIsStartingWithAndAuthor(filter, user);
             Collections.reverse(posts);
             model.put("posts", posts);
             return "blog";

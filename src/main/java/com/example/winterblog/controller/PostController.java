@@ -47,20 +47,19 @@ public class PostController {
     public String getUpdatingPage(@PathVariable Long id, Map<String, Object> model) {
         Post postFromDb = postDAO.findPostById(id).get(0);
         model.put("id", id);
-        model.put("title", postFromDb.getTag());
+        model.put("title", postFromDb.getTitle());
         model.put("text", postFromDb.getText());
         return "update_post";
     }
 
     @PostMapping("post_update/{id}")
     public String updatePost(
-            @AuthenticationPrincipal User user,
             @PathVariable Long id,
             @RequestParam String title,
             @RequestParam String text
     ) {
         Post postFromDb = postDAO.findPostById(id).get(0);
-        postFromDb.setTag(title);
+        postFromDb.setTitle(title);
         postFromDb.setText(text);
         postDAO.save(postFromDb);
         return "redirect:/blog";
@@ -71,13 +70,13 @@ public class PostController {
     //==========================================
 
     @PostMapping("post_delete/{id}")
-    public String deletePost(@PathVariable Long id, Map<String, Object> model) {
+    public String deletePost(@PathVariable Long id) {
         postDAO.deleteAll(postDAO.findPostById(id));
         return "redirect:/blog";
     }
 
     @PostMapping("delete_all")
-    public String deletePosts(@AuthenticationPrincipal User user, Map<String, Object> model) {
+    public String deletePosts(@AuthenticationPrincipal User user) {
         postDAO.deleteAll(postDAO.findPostByAuthor(user));
         return "redirect:/blog";
     }

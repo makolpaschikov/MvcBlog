@@ -11,5 +11,5 @@ import java.util.List;
 public interface PostDAO extends CrudRepository<Post, String> {
     List<Post> findPostByAuthor(User author);
     List<Post> findPostById(Long id);
-    List<Post>  findPostByTagIsStartingWithAndAuthor(String filter, User user);
+    List<Post> findPostByTitleIsStartingWithAndAuthor(String filter, User user);
 }

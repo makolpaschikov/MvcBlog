@@ -15,12 +15,12 @@ import java.util.Map;
 import static com.example.winterblog.domain.UserRole.ADMIN;
 
 @Controller
-@RequestMapping("signin")
-public class SigninController {
+@RequestMapping("signup")
+public class SignupController {
     private final UserDAO userDAO;
 
     @Autowired
-    public SigninController(UserDAO userDAO) {
+    public SignupController(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
