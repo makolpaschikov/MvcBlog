@@ -24,7 +24,21 @@ public class User implements UserDetails {
     private Boolean active;
 
     //==========================================
-    //======= GETTERS AND SETTERS ==============
+    //============= CONSTRUCTORS ===============
+    //==========================================
+
+    public User() {
+    }
+
+    public User(Set<UserRole> roles, String username, String password, Boolean active) {
+        this.roles = roles;
+        this.username = username;
+        this.password = password;
+        this.active = active;
+    }
+
+    //==========================================
+    //========= GETTERS AND SETTERS ============
     //==========================================
 
     public Long getId() {

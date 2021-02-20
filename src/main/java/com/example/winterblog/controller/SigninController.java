@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Collections;
 import java.util.Map;
 
+import static com.example.winterblog.domain.UserRole.ADMIN;
+
 @Controller
 @RequestMapping("signin")
 public class SigninController {
@@ -31,7 +33,7 @@ public class SigninController {
     public String registration(User user, Map<String, Object> model) {
         User userFromDB = userDAO.findUserByUsername(user.getUsername());
         if (userFromDB != null) {
-            model.put("warning", "A user with this name is already registered!");
+            model.put("warning", "A user with this username is already registered");
             return getPage();
         } else {
             user.setActive(true);

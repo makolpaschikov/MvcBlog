@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>SignIn</title>
+    <title>Post updating</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <style type="text/css">
@@ -14,11 +14,6 @@
             left: 0;
             text-align: center;
         }
-        .warning {
-            margin-top: 10pt;
-            text-align: center;
-            color: red;
-        }
     </style>
 </head>
 
@@ -28,13 +23,16 @@
     <div>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/blog">Blog</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/login">LogIn</a>
+                <a class="nav-link" href="/users">Users</a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="/signin">SignIn</a>
+            <li class="nav-item">
+                <form action="/logout" method="post">
+                    <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+                    <button id="logout" class="btn btn-link"  type="submit">Logout</button>
+                </form>
             </li>
         </ul>
     </div>
@@ -44,19 +42,16 @@
     <div class="container pt-5 mt-5"><div class="mt-5 pt-5"><div class="mt-5 pt-5">
         <div class="row justify-content-center">
             <div class="col-4">
-                <form method="post" action="/signin">
+                <form method="post" action="/blog/post_update/{{id}}">
                     <div class="form-label-group">
-                        <input type="text" class="form-control" name="username" placeholder="Username">
+                        <input type="text" class="form-control" name="title" placeholder="Title" value="{{title}}"/>
                     </div>
                     <div class="form-label-group">
-                        <input type="password" class="form-control" name="password" placeholder="Password">
+                        <input type="text" class="form-control" name="text" placeholder="Text" value="{{text}}">
                     </div>
                     <input type="hidden" name="_csrf" value="{{_csrf.token}}">
-                    <br><button class="btn btn-sm btn-outline-primary btn-block" type="submit"><b>Sign in</b></button>
+                    <button class="btn btn-sm btn-outline-primary btn-block mt-1" type="submit"><b>Update</b></button>
                 </form>
-                <div class="warning">
-                    <b> {{#warning}} {{warning}} {{/warning}} </b>
-                </div>
             </div>
         </div>
     </div></div></div>

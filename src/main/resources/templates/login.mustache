@@ -3,13 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>LogIn</title>
+    <title>SignIn</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <style type="text/css">
         .footer {
-            border: solid 1px silver;
-            position: relative;
+            position: fixed;
             bottom: 0;
             width: 100%;
             left: 0;
@@ -27,10 +26,10 @@
                 <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="/login">LogIn</a>
+                <a class="nav-link" href="/login">SignIn</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/signin">SignIn</a>
+                <a class="nav-link" href="/signin">SignUp</a>
             </li>
         </ul>
     </div>
@@ -48,7 +47,7 @@
                         <input type="password" class="form-control" name="password" placeholder="Password">
                     </div>
                     <input type="hidden" name="_csrf" value="{{_csrf.token}}">
-                    <br><button class="btn btn-sm btn-outline-primary btn-block" type="submit"><b>Log in</b></button>
+                    <br><button class="btn btn-sm btn-outline-primary btn-block" type="submit"><b>SignIn</b></button>
                 </form>
                 <a class="btn btn-sm btn-outline-primary btn-block text-area color-rect-border mt-1" href="/signin"><b>Create account</b></a>
             </div>

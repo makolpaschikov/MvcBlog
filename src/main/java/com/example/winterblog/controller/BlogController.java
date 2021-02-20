@@ -30,28 +30,19 @@ public class BlogController {
         return "blog";
     }
 
-    @PostMapping
-    public String addPost(@AuthenticationPrincipal User user, @RequestParam String tag, @RequestParam String text, Map<String, Object> model) {
-        postDAO.save(new Post(tag, text, user));
-        return getPage(user, model);
-    }
-
     @PostMapping("filter")
     public String filterPosts(@AuthenticationPrincipal User user, @RequestParam String filter, Map<String, Object> model) {
         List<Post> posts;
         if (filter.equals("") || filter.isEmpty()) {
             posts = postDAO.findPostByAuthor(user);
+            Collections.reverse(posts);
+            model.put("posts", posts);
+            return "redirect:/blog";
         } else {
             posts = postDAO.findPostByTagIsStartingWithAndAuthor(filter, user);
+            Collections.reverse(posts);
+            model.put("posts", posts);
+            return "blog";
         }
-        Collections.reverse(posts);
-        model.put("posts", posts);
-        return "blog";
-    }
-
-    @PostMapping("clear")
-    public String filterPosts(@AuthenticationPrincipal User user, Map<String, Object> model) {
-        postDAO.deleteAll(postDAO.findPostByAuthor(user));
-        return getPage(user, model);
     }
 }

@@ -10,7 +10,6 @@ import java.util.List;
 
 public interface PostDAO extends CrudRepository<Post, String> {
     List<Post> findPostByAuthor(User author);
+    List<Post> findPostById(Long id);
     List<Post>  findPostByTagIsStartingWithAndAuthor(String filter, User user);
-    void deletePostsByAuthor(User user);
-    //void removeAllByAuthor(User user);
 }
