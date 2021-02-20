@@ -1,7 +1,14 @@
 package com.example.winterblog.domain;
 
-public enum UserRole {
+import org.springframework.security.core.GrantedAuthority;
+
+public enum UserRole implements GrantedAuthority {
     ADMIN,
     MODER,
-    USER
+    USER;
+
+    @Override
+    public String getAuthority() {
+        return name();
+    }
 }

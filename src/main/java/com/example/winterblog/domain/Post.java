@@ -12,6 +12,10 @@ public class Post {
     @Column(updatable = false)
     private String creationTime;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User author;
+
     private String tag;
     private String text;
 
@@ -21,9 +25,10 @@ public class Post {
 
     public Post() {}
 
-    public Post(String tag, String text) {
+    public Post(String tag, String text, User author) {
         this.tag = tag;
         this.text = text;
+        this.author = author;
 
         String time = LocalDateTime.now().toString();
         this.creationTime = time.substring(0, time.lastIndexOf(":")).replace('T', ' ');
@@ -63,5 +68,13 @@ public class Post {
 
     public void setCreationTime(String creationTime) {
         this.creationTime = creationTime;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User user) {
+        this.author = user;
     }
 }

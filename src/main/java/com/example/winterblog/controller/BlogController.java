@@ -1,14 +1,12 @@
 package com.example.winterblog.controller;
 
 import com.example.winterblog.domain.Post;
+import com.example.winterblog.domain.User;
 import com.example.winterblog.repository.PostDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,30 +23,35 @@ public class BlogController {
     }
 
     @GetMapping
-    public String getPage(Map<String, Object> model) {
-        List<Post> posts = (List<Post>) postDAO.findAll();
+    public String getPage(@AuthenticationPrincipal User user, Map<String, Object> model) {
+        List<Post> posts = postDAO.findPostByAuthor(user);
         Collections.reverse(posts);
         model.put("posts", posts);
         return "blog";
     }
 
     @PostMapping
-    public String addPost(@RequestParam String tag, @RequestParam String text, Map<String, Object> model) {
-        postDAO.save(new Post(tag, text));
-        return getPage(model);
+    public String addPost(@AuthenticationPrincipal User user, @RequestParam String tag, @RequestParam String text, Map<String, Object> model) {
+        postDAO.save(new Post(tag, text, user));
+        return getPage(user, model);
     }
 
     @PostMapping("filter")
-    public String filterPosts(@RequestParam String filter, Map<String, Object> model) {
-        List<Post> posts = postDAO.findPostByTagIsStartingWith(filter);
+    public String filterPosts(@AuthenticationPrincipal User user, @RequestParam String filter, Map<String, Object> model) {
+        List<Post> posts;
+        if (filter.equals("") || filter.isEmpty()) {
+            posts = postDAO.findPostByAuthor(user);
+        } else {
+            posts = postDAO.findPostByTagIsStartingWithAndAuthor(filter, user);
+        }
         Collections.reverse(posts);
         model.put("posts", posts);
         return "blog";
     }
 
     @PostMapping("clear")
-    public String filterPosts(Map<String, Object> model) {
-        postDAO.deleteAll();
-        return getPage(model);
+    public String filterPosts(@AuthenticationPrincipal User user, Map<String, Object> model) {
+        postDAO.deleteAll(postDAO.findPostByAuthor(user));
+        return getPage(user, model);
     }
 }
