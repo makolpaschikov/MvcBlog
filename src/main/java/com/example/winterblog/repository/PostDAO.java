@@ -8,6 +8,10 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
+/**
+ * Repository responsible for user posts in the database
+ * @author makolpaschikov
+ */
 public interface PostDAO extends CrudRepository<Post, String> {
     List<Post> findPostByAuthor(User author);
     List<Post> findPostById(Long id);

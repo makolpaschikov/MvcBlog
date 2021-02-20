@@ -7,6 +7,11 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
 
+/**
+ * Entity-user
+ * Stores user id, password, profile active and set of user roles
+ * @author makolpaschikov
+ */
 @Entity
 public class User implements UserDetails {
 

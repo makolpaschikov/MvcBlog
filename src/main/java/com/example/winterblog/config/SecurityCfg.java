@@ -1,5 +1,6 @@
 package com.example.winterblog.config;
 
+import com.example.winterblog.repository.UserDAO;
 import com.example.winterblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -12,33 +13,40 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * SpringSecurity configuration
+ * @author makolpaschikov
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityCfg extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
+    /**
+     * Users repository
+     * @see UserDAO
+     */
     @Autowired
     private UserService userService;
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("login");
-        registry.addViewController("/main").setViewName("blog");
+        registry.addViewController("/login").setViewName("login"); // custom login page
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .mvcMatchers("/", "signup").permitAll()
+                    .mvcMatchers("/", "signup").permitAll() // access to home and registration pages
                     .anyRequest().authenticated()
                 .and()
-                    .formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/blog")
+                    .formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/blog") // login page
                 .and()
-                    .logout().logoutSuccessUrl("/").permitAll();
+                    .logout().logoutSuccessUrl("/").permitAll(); // redirect to home page after logout
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+        auth.userDetailsService(userService).passwordEncoder(NoOpPasswordEncoder.getInstance()); // user list for AuthenticationManager
     }
 }
