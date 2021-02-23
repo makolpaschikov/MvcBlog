@@ -2,8 +2,10 @@ package com.example.winterblog.controller;
 
 import com.example.winterblog.domain.Post;
 import com.example.winterblog.domain.User;
+import com.example.winterblog.domain.UserRole;
 import com.example.winterblog.repository.PostDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -36,10 +38,14 @@ public class BlogController {
      */
     @GetMapping
     public String getPage(@AuthenticationPrincipal User user, Map<String, Object> model) {
-        List<Post> posts = postDAO.findPostByAuthor(user);
-        Collections.reverse(posts); // Crutch, allowing you to return first critical posts
-        model.put("posts", posts);
-        return "blog";
+        if (user.getRoles().contains(UserRole.ADMIN)) {
+            return "redirect:/admin";
+        } else {
+            List<Post> posts = postDAO.findPostByAuthor(user);
+            Collections.reverse(posts); // Crutch, allowing you to return first critical posts
+            model.put("posts", posts);
+            return "blog";
+        }
     }
 
     /**

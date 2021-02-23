@@ -3,10 +3,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Admin panel</title>
+    <title>Blog</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <style type="text/css">
+        html {
+            min-height: 100%;
+            position:relative;
+        }
+        body {
+            min-height: 100%;
+            position:relative;
+        }
         .footer {
             position: fixed;
             bottom: 0;
@@ -31,6 +39,9 @@
     <div>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
+                <a class="nav-link" href="/admin">Admin panel</a>
+            </li>
+            <li class="nav-item">
                 <form action="/logout" method="post">
                     <input type="hidden" name="_csrf" value="{{_csrf.token}}">
                     <button id="logout" class="btn btn-link"  type="submit">Logout</button>
@@ -42,25 +53,27 @@
 
 <main role="main">
     <div class="container pt-2 mt-2 ml-5 mr-5 mb-2">
-        {{#users}}
+        {{#posts}}
+            <div class="row mt-3 ">
+                <div class="col-0">
+                    <b>{{title}}</b>
+                </div>
+            </div>
+            <div class="row">
+                {{text}}
+            </div>
             <div class="row mt-3">
-                {{username}}
+                {{creationTime}}
             </div>
             <div class="row mt-2">
-                <div class="col-0">
-                    <form action="admin/user_posts/{{id}}" method="get">
-                        <input type="hidden" name="_csrf" value="{{_csrf.token}}">
-                        <button class="btn-outline-success rounded" type="submit">Posts</button>
-                    </form>
-                </div>
                 <div class="col-0 ml-2">
-                    <form action="admin/user_delete/{{id}}" method="post">
+                    <form action="/admin/post_delete/{{id}}" method="post">
                         <input type="hidden" name="_csrf" value="{{_csrf.token}}">
                         <button class="btn-outline-danger rounded" type="submit">Delete</button>
                     </form>
                 </div>
             </div>
-        {{/users}}
+        {{/posts}}
     </div>
 </main>
 
