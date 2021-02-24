@@ -58,6 +58,7 @@ public class AdminController {
      */
     @PostMapping("user_delete/{id}")
     public String deleteUser(@PathVariable Long id) {
+        postDAO.deleteAll(postDAO.findPostByAuthor(userDAO.findUserById(id).get(0)));
         userDAO.deleteAll(userDAO.findUserById(id));
         return "redirect:/admin";
     }
