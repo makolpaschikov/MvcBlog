@@ -10,9 +10,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
+/**
+ * The controller displaying all users for the user
+ * @author makolpaschikov
+ */
 @Controller
 @RequestMapping("/users")
 public class UsersController {
+    /**
+     * Users repository
+     * @see UserDAO
+     */
     private final UserDAO userDAO;
 
     @Autowired
@@ -20,12 +28,19 @@ public class UsersController {
         this.userDAO = userDAO;
     }
 
+    /**
+     * Returns a page listing all users on it
+     */
     @GetMapping
     public String getPage(Map<String, Object> model) {
         model.put("users", userDAO.findAll());
         return "users";
     }
 
+    /**
+     * Finds users in the list starting with the specified username
+     * @param username - filter for searching users by username
+     */
     @PostMapping("user")
     public String getUser(@RequestParam String username, Map<String, Object> model) {
         model.put("users", userDAO.findUserByUsernameIsStartingWith(username));

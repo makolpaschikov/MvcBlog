@@ -7,6 +7,11 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
 
+/**
+ * Entity-user
+ * Stores user id, password, profile active and set of user roles
+ * @author makolpaschikov
+ */
 @Entity
 public class User implements UserDetails {
 
@@ -24,7 +29,21 @@ public class User implements UserDetails {
     private Boolean active;
 
     //==========================================
-    //======= GETTERS AND SETTERS ==============
+    //============= CONSTRUCTORS ===============
+    //==========================================
+
+    public User() {
+    }
+
+    public User(Set<UserRole> roles, String username, String password, Boolean active) {
+        this.roles = roles;
+        this.username = username;
+        this.password = password;
+        this.active = active;
+    }
+
+    //==========================================
+    //========= GETTERS AND SETTERS ============
     //==========================================
 
     public Long getId() {

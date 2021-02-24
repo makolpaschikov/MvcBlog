@@ -3,6 +3,11 @@ package com.example.winterblog.domain;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * Entity-post
+ * Stores post id, author, title and text, post creation time
+ * @author makolpaschikov
+ */
 @Entity
 public class Post {
     @Id
@@ -16,7 +21,7 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User author;
 
-    private String tag;
+    private String title;
     private String text;
 
     //==========================================
@@ -25,11 +30,12 @@ public class Post {
 
     public Post() {}
 
-    public Post(String tag, String text, User author) {
-        this.tag = tag;
+    public Post(String title, String text, User author) {
+        this.title = title;
         this.text = text;
         this.author = author;
 
+        // Also a crutch, java did not want to cast the date to the format I needed
         String time = LocalDateTime.now().toString();
         this.creationTime = time.substring(0, time.lastIndexOf(":")).replace('T', ' ');
     }
@@ -46,12 +52,12 @@ public class Post {
         this.id = id;
     }
 
-    public String getTag() {
-        return tag;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setTitle(String tag) {
+        this.title = tag;
     }
 
     public String getText() {
@@ -64,10 +70,6 @@ public class Post {
 
     public String getCreationTime() {
         return creationTime;
-    }
-
-    public void setCreationTime(String creationTime) {
-        this.creationTime = creationTime;
     }
 
     public User getAuthor() {
