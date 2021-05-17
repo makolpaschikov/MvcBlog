@@ -2,7 +2,7 @@ package com.example.winterblog.controller;
 
 import com.example.winterblog.domain.Post;
 import com.example.winterblog.domain.User;
-import com.example.winterblog.repository.PostDAO;
+import com.example.winterblog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -19,12 +19,11 @@ import java.util.Map;
 public class PostController {
     /**
      * User posts repository
-     * @see PostDAO
      */
-    private final PostDAO postDAO;
+    private final PostService postService;
 
     @Autowired
-    public PostController(PostDAO postDAO) { this.postDAO = postDAO; }
+    public PostController(PostService postService) { this.postService = postService; }
 
     //==========================================
     //============= CREATING POST ==============
@@ -50,7 +49,7 @@ public class PostController {
             @RequestParam String title,
             @RequestParam String text
     ) {
-        postDAO.save(new Post(title, text, user));
+        postService.save(new Post(title, text, user));
         return "redirect:/blog";
     }
 
@@ -64,7 +63,7 @@ public class PostController {
      */
     @GetMapping("post_update/{id}")
     public String getUpdatingPage(@PathVariable Long id, Map<String, Object> model) {
-        Post postFromDb = postDAO.findPostById(id).get(0);
+        Post postFromDb = postService.getById(id).get(0);
         model.put("id", id);
         model.put("title", postFromDb.getTitle()); // Sets the current post title to the form
         model.put("text", postFromDb.getText()); // Sets the current post text to the form
@@ -83,10 +82,10 @@ public class PostController {
             @RequestParam String title,
             @RequestParam String text
     ) {
-        Post postFromDb = postDAO.findPostById(id).get(0); // This is not a crutch, I just write the method in the repository ^^
+        Post postFromDb = postService.getById(id).get(0); // This is not a crutch, I just write the method in the repository ^^
         postFromDb.setTitle(title);
         postFromDb.setText(text);
-        postDAO.save(postFromDb);
+        postService.save(postFromDb);
         return "redirect:/blog";
     }
 
@@ -100,7 +99,7 @@ public class PostController {
      */
     @PostMapping("post_delete/{id}")
     public String deletePost(@PathVariable Long id) {
-        postDAO.deleteAll(postDAO.findPostById(id));
+        postService.deleteAll(postService.getById(id));
         return "redirect:/blog";
     }
 
@@ -110,7 +109,7 @@ public class PostController {
      */
     @PostMapping("delete_all")
     public String deletePosts(@AuthenticationPrincipal User user) {
-        postDAO.deleteAll(postDAO.findPostByAuthor(user));
+        postService.deleteAll(postService.getByAuthor(user));
         return "redirect:/blog";
     }
 

@@ -3,7 +3,7 @@ package com.example.winterblog.controller;
 import com.example.winterblog.domain.Post;
 import com.example.winterblog.domain.User;
 import com.example.winterblog.domain.UserRole;
-import com.example.winterblog.repository.PostDAO;
+import com.example.winterblog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -25,13 +25,12 @@ import java.util.Map;
 public class BlogController {
     /**
      * User posts repository
-     * @see PostDAO
      */
-    private final PostDAO postDAO;
+    private final PostService postService;
 
     @Autowired
-    public BlogController(PostDAO postDAO) {
-        this.postDAO = postDAO;
+    public BlogController(PostService postService) {
+        this.postService = postService;
     }
 
     /**
@@ -43,7 +42,7 @@ public class BlogController {
         if (user.getRoles().contains(UserRole.ADMIN)) {
             return "redirect:/admin";
         } else {
-            List<Post> posts = postDAO.findPostByAuthor(user);
+            List<Post> posts = postService.getByAuthor(user);
             Collections.reverse(posts); // Crutch, allowing you to return first critical posts
             model.put("posts", posts);
             return "blog";
@@ -59,12 +58,12 @@ public class BlogController {
     public String filterPosts(@AuthenticationPrincipal User user, @RequestParam String filter, Map<String, Object> model) {
         List<Post> posts;
         if (filter.equals("") || filter.isEmpty()) {
-            posts = postDAO.findPostByAuthor(user);
+            posts = postService.getByAuthor(user);
             Collections.reverse(posts); // Crutch, allowing you to return first critical posts
             model.put("posts", posts);
             return "redirect:/blog";
         } else {
-            posts = postDAO.findPostByTitleIsStartingWithAndAuthor(filter, user);
+            posts = postService.getByAuthorAndFilter(filter, user);
             Collections.reverse(posts); // Crutch, allowing you to return first critical posts
             model.put("posts", posts);
             return "blog";

@@ -1,6 +1,7 @@
 package com.example.winterblog.controller;
 
 import com.example.winterblog.repository.UserDAO;
+import com.example.winterblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +22,11 @@ public class UsersController {
      * Users repository
      * @see UserDAO
      */
-    private final UserDAO userDAO;
+    private final UserService userService;
 
     @Autowired
-    public UsersController(UserDAO userDAO) {
-        this.userDAO = userDAO;
+    public UsersController(UserService userService) {
+        this.userService = userService;
     }
 
     /**
@@ -33,7 +34,7 @@ public class UsersController {
      */
     @GetMapping
     public String getPage(Map<String, Object> model) {
-        model.put("users", userDAO.findAll());
+        model.put("users", userService.getAll());
         return "users";
     }
 
@@ -43,7 +44,7 @@ public class UsersController {
      */
     @PostMapping("user")
     public String getUser(@RequestParam String username, Map<String, Object> model) {
-        model.put("users", userDAO.findUserByUsernameIsStartingWith(username));
+        model.put("users", userService.getByNameStartWith(username));
         return "users";
     }
 }
