@@ -28,11 +28,17 @@ public class SecurityCfg extends WebSecurityConfigurerAdapter implements WebMvcC
     @Autowired
     private UserService userService;
 
+    /**
+     * Changes the view for the endpoint login
+     */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login"); // custom login page
     }
 
+    /**
+     * Sets the level of access to different endpoints
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -45,6 +51,9 @@ public class SecurityCfg extends WebSecurityConfigurerAdapter implements WebMvcC
                     .logout().logoutSuccessUrl("/").permitAll(); // redirect to home page after logout
     }
 
+    /**
+     * Installs user service
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(NoOpPasswordEncoder.getInstance()); // user list for AuthenticationManager

@@ -16,6 +16,10 @@ public class UserService implements UserDetailsService {
         this.userDAO = userDAO;
     }
 
+    /**
+     * Finds in the user base by his username
+     * @param username - username of user
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userDAO.findUserByUsername(username);
